@@ -1,0 +1,4 @@
+# Add these lines to your .gitignore
+node_modules/@capacitor/android/capacitor/build/
+android/build/
+android/app/build/
