@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">AgriSellerPro</string>
+    <string name="title_activity_main">AgriSellerPro</string>
+    <string name="package_name">com.agriseller.app</string>
+    <string name="custom_url_scheme">com.agriseller.app</string>
+</resources>
