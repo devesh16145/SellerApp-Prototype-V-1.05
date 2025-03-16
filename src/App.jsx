@@ -29,7 +29,10 @@ import ReferAppPage from './components/profile-pages/ReferAppPage'
 import MyStatementsPage from './components/profile-pages/MyStatementsPage'
 import SellerScorePage from './components/profile-pages/SellerScorePage'
 import TopSellingProducts from './components/TopSellingProducts' // Import TopSellingProducts
-import SellerLeaderboardPage from './components/profile-pages/SellerLeaderboardPage' // IMPORT IS ADDED HERE
+import SellerLeaderboardPage from './components/profile-pages/SellerLeaderboardPage'
+import DemandForecastPage from './components/profile-pages/DemandForecastPage'
+import PriceIntelligencePage from './components/profile-pages/PriceIntelligencePage'
+
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState('')
@@ -130,8 +133,12 @@ export default function App() {
           <MyStatementsPage />
         ) : activePage === 'sellerScore' ? (
           <SellerScorePage />
-        ) :  activePage === 'sellerLeaderboard' ? ( // ADDED THIS CASE
-          <SellerLeaderboardPage />          // ADDED THIS LINE
+        ) : activePage === 'sellerLeaderboard' ? (
+          <SellerLeaderboardPage />
+        ) : activePage === 'demandForecast' ? (
+          <DemandForecastPage />
+        ) : activePage === 'priceIntelligence' ? (
+          <PriceIntelligencePage />
         ) : null}
       </main>
 

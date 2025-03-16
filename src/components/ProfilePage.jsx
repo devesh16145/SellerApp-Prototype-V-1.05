@@ -113,6 +113,27 @@ export default function ProfilePage({ setActivePage, onLogout }) {
                 </div>
                 <FiChevronRight />
               </button>
+              <button
+                onClick={() => setActivePage('demandForecast')}
+                className="flex w-full p-3 text-left hover:bg-agri-gray justify-between items-center"
+              >
+                <div className="flex items-center">
+                  <span className="mr-2"><FiTrendingUp /></span>
+                  <span>AI Demand Forecast</span>
+                </div>
+                <FiChevronRight />
+              </button>
+              <button
+                onClick={() => setActivePage('priceIntelligence')}
+                className="flex w-full p-3 text-left hover:bg-agri-gray justify-between items-center"
+              >
+                <div className="flex items-center">
+                  <span className="mr-2"><FiBarChart /></span>
+                  <span>Price Intelligence</span>
+                </div>
+                <FiChevronRight />
+              </button>
+
             </div>
           </div>
 

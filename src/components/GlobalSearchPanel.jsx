@@ -20,6 +20,9 @@ const appSections = [
   { name: 'Refer App', path: 'referApp', parent: 'Profile' },
   { name: 'My Statements', path: 'myStatements', parent: 'Profile' },
   { name: 'Seller Score', path: 'sellerScore', parent: 'Profile' },
+  { name: 'AI Demand Forecast', path: 'demandForecast', parent: 'Profile' },
+  { name: 'Price Intelligence', path: 'priceIntelligence', parent: 'Profile' },
+  { name: 'GST Compliance', path: 'gstCompliance', parent: 'Profile' },
 ];
 
 export default function GlobalSearchPanel({ onSearch, setActivePage }) {
