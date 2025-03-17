@@ -3,6 +3,7 @@ import ProductCard from './ProductCard';
 import { FiSearch, FiX, FiUpload } from 'react-icons/fi'; // Import FiUpload icon
 import AddNewProductButton from './AddNewProductButton';
 import AddProductForm from './AddProductForm';
+import BulkUploadForm from './BulkUploadForm';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../context/AuthContext';
 
@@ -15,6 +16,7 @@ export default function MyProducts() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAddProductForm, setShowAddProductForm] = useState(false);
+  const [showBulkUploadForm, setShowBulkUploadForm] = useState(false);
   const { userId } = useAuth();
 
   useEffect(() => {
@@ -97,8 +99,17 @@ export default function MyProducts() {
   };
 
   const handleBulkUploadClick = () => {
-    alert("Bulk product upload feature - UI Placeholder. Functionality not implemented in this version.");
-    // In a real app, you would open a modal or page for bulk upload here
+    setShowBulkUploadForm(true);
+  };
+
+  const closeBulkUploadForm = () => {
+    setShowBulkUploadForm(false);
+  };
+
+  const handleProductsAdded = (newProducts) => {
+    // Add the new products to the existing products list
+    setProducts([...newProducts, ...products]);
+    closeBulkUploadForm();
   };
 
 
@@ -146,6 +157,10 @@ export default function MyProducts() {
 
         {showAddProductForm && (
           <AddProductForm onClose={closeAddProductForm} onProductAdded={handleProductAdded} />
+        )}
+
+        {showBulkUploadForm && (
+          <BulkUploadForm onClose={closeBulkUploadForm} onProductsAdded={handleProductsAdded} />
         )}
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

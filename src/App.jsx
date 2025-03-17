@@ -65,28 +65,28 @@ export default function App() {
   return (
     <div className="min-h-screen bg-agri-gray">
       <motion.nav
-        className="bg-white shadow-sm p-2"
+        className="bg-gradient-to-r from-agri-green to-agri-green-dark p-3 shadow-md"
         initial={{ y: -50 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.3 }}
       >
         <div className="container mx-auto flex items-center justify-between">
-          <h1 className="text-agri-green text-lg font-bold">AgriSeller Pro</h1>
-          <div className="flex items-center space-x-2">
+          <h1 className="text-white text-xl font-bold tracking-tight">AgriSeller Pro</h1>
+          <div className="flex items-center space-x-3">
             <motion.button
-              className="p-1 hover:bg-agri-gray rounded-full"
+              className="p-2 bg-white/20 hover:bg-white/30 rounded-full text-white"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
-              <FiBell className="text-base text-agri-green" />
+              <FiBell className="text-base" />
             </motion.button>
             <motion.button
-              className="p-1 hover:bg-agri-gray rounded-full"
+              className="p-2 bg-white/20 hover:bg-white/30 rounded-full text-white"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => setActivePage('profile')}
             >
-              <FiUser className="text-base text-agri-green" />
+              <FiUser className="text-base" />
             </motion.button>
           </div>
         </div>

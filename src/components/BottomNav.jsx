@@ -34,14 +34,15 @@ export default function BottomNav({ setActivePage, activePage }) {
 
 const NavItem = ({ icon, text, onClick, isActive }) => (
   <motion.button
-    className={`flex flex-col items-center justify-center space-y-1 p-2 rounded-lg hover:bg-agri-gray ${
-      isActive ? 'text-agri-green' : 'text-gray-500'
-    }`}
+    className={`flex flex-col items-center justify-center p-2 rounded-xl ${isActive 
+      ? 'bg-gradient-to-r from-agri-green to-agri-green-dark text-white' 
+      : 'text-gray-500 hover:bg-agri-gray'}`}
     onClick={onClick}
-    whileHover={{ scale: 1.1 }}
-    whileTap={{ scale: 0.9 }}
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
   >
-    <span className="text-xl">{icon}</span>
-    <span className="text-xs font-medium">{text}</span>
+    <span className={`text-xl ${isActive ? 'mb-1' : 'mb-0.5'}`}>{icon}</span>
+    <span className={`text-xs font-medium ${isActive ? 'opacity-100' : 'opacity-80'}`}>{text}</span>
+    {isActive && <motion.div className="h-1 w-10 bg-white rounded-full mt-1" layoutId="activeTab" />}
   </motion.button>
 );
