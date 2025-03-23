@@ -153,11 +153,13 @@ export default function MyProducts() {
       </div>
 
       <div className="p-3 space-y-3">
-        <div className="flex justify-between items-center">
-          <AddNewProductButton onClick={openAddProductForm} />
+        <div className="flex justify-between items-center gap-4">
+          <div className="flex-1">
+            <AddNewProductButton onClick={openAddProductForm} />
+          </div>
           <button
             onClick={handleBulkUploadClick}
-            className="bg-blue-500 hover:bg-blue-700 text-white py-1.5 rounded-lg shadow-md flex items-center justify-center space-x-1 text-sm px-3"
+            className="bg-blue-500 hover:bg-blue-700 text-white py-1.5 px-4 rounded-lg shadow-md flex items-center justify-center space-x-2 text-sm whitespace-nowrap"
           >
             <FiUpload className="text-base" />
             <span>Bulk Upload</span>
@@ -172,7 +174,7 @@ export default function MyProducts() {
           <BulkUploadForm onClose={closeBulkUploadForm} onProductsAdded={handleProductsAdded} />
         )}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
           {paginatedProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { FiBell, FiUser } from 'react-icons/fi'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import { useAuth } from './context/AuthContext'
 import LoginForm from './components/auth/LoginForm'
 import SignUpForm from './components/auth/SignUpForm'
@@ -36,7 +36,8 @@ import DemandForecastPage from './components/profile-pages/DemandForecastPage'
 import PriceIntelligencePage from './components/profile-pages/PriceIntelligencePage'
 
 
-export default function App() {
+function AppContent() {
+  const navigate = useNavigate()
   const [searchQuery, setSearchQuery] = useState('')
   const [activePage, setActivePage] = useState('home')
   const [showLogin, setShowLogin] = useState(true)
@@ -65,7 +66,6 @@ export default function App() {
   }
 
   return (
-    <Router>
     <div className="min-h-screen bg-agri-gray">
       <motion.nav
         className="bg-gradient-to-r from-agri-green to-agri-green-dark p-3 shadow-md"
@@ -87,7 +87,7 @@ export default function App() {
               className="p-2 bg-white/20 hover:bg-white/30 rounded-full text-white"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              onClick={() => setActivePage('profile')}
+              onClick={() => navigate('/profile')}
             >
               <FiUser className="text-base" />
             </motion.button>
@@ -129,6 +129,13 @@ export default function App() {
       </Routes>
       <BottomNav setActivePage={setActivePage} activePage={activePage} />
     </div>
-    </Router>
+  )
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/*" element={<AppContent />} />
+    </Routes>
   )
 }

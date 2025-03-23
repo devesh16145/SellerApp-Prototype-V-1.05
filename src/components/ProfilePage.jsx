@@ -22,7 +22,10 @@ import {
   FiSliders,
 } from 'react-icons/fi';
 
-export default function ProfilePage({ setActivePage, onLogout }) {
+import { useNavigate } from 'react-router-dom';
+
+export default function ProfilePage({ onLogout }) {
+  const navigate = useNavigate();
   return (
     <div className="w-full">
       <div className="bg-white rounded-none shadow-sm border">
@@ -38,7 +41,7 @@ export default function ProfilePage({ setActivePage, onLogout }) {
               <span className="text-sm">Support</span>
             </div>
             <button
-              onClick={() => setActivePage('sellerLeaderboard')}
+              onClick={() => navigate('/seller-leaderboard')}
               className="flex-1 bg-agri-gray p-3 rounded-md flex flex-col items-center justify-center"
             >
               <FiStar className="text-xl text-agri-green mb-1" />
@@ -54,7 +57,7 @@ export default function ProfilePage({ setActivePage, onLogout }) {
             <h3 className="text-sm font-semibold text-gray-700 mb-2">YOUR INFORMATION</h3>
             <div className="divide-y divide-gray-100">
               <button
-                onClick={() => setActivePage('accountDetails')}
+                onClick={() => navigate('/account-details')}
                 className="flex w-full p-3 text-left hover:bg-agri-gray justify-between items-center"
               >
                 <div className="flex items-center">
@@ -64,7 +67,7 @@ export default function ProfilePage({ setActivePage, onLogout }) {
                 <FiChevronRight />
               </button>
               <button
-                onClick={() => setActivePage('addressDetails')}
+                onClick={() => navigate('/address-details')}
                 className="flex w-full p-3 text-left hover:bg-agri-gray justify-between items-center"
               >
                 <div className="flex items-center">
@@ -74,7 +77,7 @@ export default function ProfilePage({ setActivePage, onLogout }) {
                 <FiChevronRight />
               </button>
               <button
-                onClick={() => setActivePage('myBills')}
+                onClick={() => navigate('/my-bills')}
                 className="flex w-full p-3 text-left hover:bg-agri-gray justify-between items-center"
               >
                 <div className="flex items-center">
@@ -84,7 +87,7 @@ export default function ProfilePage({ setActivePage, onLogout }) {
                 <FiChevronRight />
               </button>
               <button
-                onClick={() => setActivePage('orderSummaryStats')}
+                onClick={() => navigate('/order-summary-stats')}
                 className="flex w-full p-3 text-left hover:bg-agri-gray justify-between items-center"
               >
                 <div className="flex items-center">
@@ -94,7 +97,7 @@ export default function ProfilePage({ setActivePage, onLogout }) {
                 <FiChevronRight />
               </button>
               <button
-                onClick={() => setActivePage('sellerSupport')}
+                onClick={() => navigate('/seller-support')}
                 className="flex w-full p-3 text-left hover:bg-agri-gray justify-between items-center"
               >
                 <div className="flex items-center">
@@ -104,7 +107,7 @@ export default function ProfilePage({ setActivePage, onLogout }) {
                 <FiChevronRight />
               </button>
               <button
-                onClick={() => setActivePage('sellerLeaderboard')}
+                onClick={() => navigate('/seller-leaderboard')}
                 className="flex w-full p-3 text-left hover:bg-agri-gray justify-between items-center"
               >
                 <div className="flex items-center">
@@ -114,7 +117,7 @@ export default function ProfilePage({ setActivePage, onLogout }) {
                 <FiChevronRight />
               </button>
               <button
-                onClick={() => setActivePage('demandForecast')}
+                onClick={() => navigate('/demand-forecast')}
                 className="flex w-full p-3 text-left hover:bg-agri-gray justify-between items-center"
               >
                 <div className="flex items-center">
@@ -124,7 +127,7 @@ export default function ProfilePage({ setActivePage, onLogout }) {
                 <FiChevronRight />
               </button>
               <button
-                onClick={() => setActivePage('priceIntelligence')}
+                onClick={() => navigate('/price-intelligence')}
                 className="flex w-full p-3 text-left hover:bg-agri-gray justify-between items-center"
               >
                 <div className="flex items-center">
@@ -141,7 +144,7 @@ export default function ProfilePage({ setActivePage, onLogout }) {
             <h3 className="text-sm font-semibold text-gray-700 mb-2">ACCOUNT SETTINGS</h3>
             <div className="divide-y divide-gray-100">
               <button
-                onClick={() => setActivePage('preferences')}
+                onClick={() => navigate('/preferences')}
                 className="flex w-full p-3 text-left hover:bg-agri-gray justify-between items-center"
               >
                 <div className="flex items-center">
@@ -151,7 +154,7 @@ export default function ProfilePage({ setActivePage, onLogout }) {
                 <FiChevronRight />
               </button>
               <button
-                onClick={() => setActivePage('privacyPolicy')}
+                onClick={() => navigate('/privacy-policy')}
                 className="flex w-full p-3 text-left hover:bg-agri-gray justify-between items-center"
               >
                 <div className="flex items-center">
@@ -161,7 +164,7 @@ export default function ProfilePage({ setActivePage, onLogout }) {
                 <FiChevronRight />
               </button>
               <button
-                onClick={() => setActivePage('termsCondition')}
+                onClick={() => navigate('/terms-condition')}
                 className="flex w-full p-3 text-left hover:bg-agri-gray justify-between items-center"
               >
                 <div className="flex items-center">
@@ -171,7 +174,7 @@ export default function ProfilePage({ setActivePage, onLogout }) {
                 <FiChevronRight />
               </button>
               <button
-                onClick={() => setActivePage('referApp')}
+                onClick={() => navigate('/refer-app')}
                 className="flex w-full p-3 text-left hover:bg-agri-gray justify-between items-center"
               >
                 <div className="flex items-center">
@@ -181,7 +184,7 @@ export default function ProfilePage({ setActivePage, onLogout }) {
                 <FiChevronRight />
               </button>
               <button
-                onClick={() => setActivePage('myStatements')}
+                onClick={() => navigate('/my-statements')}
                 className="flex w-full p-3 text-left hover:bg-agri-gray justify-between items-center"
               >
                 <div className="flex items-center">
@@ -191,7 +194,7 @@ export default function ProfilePage({ setActivePage, onLogout }) {
                 <FiChevronRight />
               </button>
               <button
-                onClick={() => setActivePage('sellerScore')}
+                onClick={() => navigate('/seller-score')}
                 className="flex w-full p-3 text-left hover:bg-agri-gray justify-between items-center"
               >
                 <div className="flex items-center">
