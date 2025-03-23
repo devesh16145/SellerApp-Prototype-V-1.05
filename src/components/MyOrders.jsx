@@ -162,7 +162,7 @@ export default function MyOrders() {
 
       {/* Tabs */}
       <div className="flex border-b border-gray-100 bg-gray-50 px-2">
-        {['All', 'New', 'Pending', 'Shipped', 'Delivered'].map(tab => {
+        {['All', 'New', 'Pending', 'Shipped'].map(tab => {
           const getTabIcon = () => {
             switch(tab) {
               case 'New': return <FiAlertCircle className="mr-1.5" />;

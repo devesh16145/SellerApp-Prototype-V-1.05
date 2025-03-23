@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { FiSearch, FiX, FiPlus } from 'react-icons/fi';
+import { motion, useAnimation } from 'framer-motion';
+import { useLocalStorage } from '@uidotdev/usehooks';
 import { useNavigate } from 'react-router-dom';
 
 export default function AllProducts() {
@@ -10,6 +12,9 @@ export default function AllProducts() {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage, setProductsPerPage] = useState(10);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [neverAskAgain, setNeverAskAgain] = useLocalStorage('neverAskAgain', false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,6 +37,25 @@ export default function AllProducts() {
       setError(err.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleDragEnd = async (product, info) => {
+    if (info.offset.x > 100) {
+      if (neverAskAgain) {
+        await handleListProduct(product);
+      } else {
+        setSelectedProduct(product);
+        setShowConfirmModal(true);
+      }
+    }
+  };
+
+  const handleConfirm = async () => {
+    if (selectedProduct) {
+      await handleListProduct(selectedProduct);
+      setShowConfirmModal(false);
+      setSelectedProduct(null);
     }
   };
 
@@ -120,7 +144,14 @@ export default function AllProducts() {
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {paginatedProducts.map((product) => (
-              <tr key={product.id} className="hover:bg-gray-50">
+              <motion.tr 
+                key={product.id} 
+                className="hover:bg-gray-50"
+                drag="x"
+                dragConstraints={{ left: 0, right: 100 }}
+                onDragEnd={(_, info) => handleDragEnd(product, info)}
+                whileDrag={{ cursor: 'grabbing' }}
+              >
                 <td className="px-6 py-4 whitespace-nowrap">{product.name}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{product.category}</td>
                 <td className="px-6 py-4 whitespace-nowrap">₹{product.base_price}</td>
@@ -136,11 +167,44 @@ export default function AllProducts() {
                     List Product
                   </button>
                 </td>
-              </tr>
+              </motion.tr>
             ))}
           </tbody>
         </table>
       </div>
+
+      {showConfirmModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full">
+            <h3 className="text-lg font-semibold mb-4">List Product</h3>
+            <p className="mb-4">Are you sure you want to list this product at best price?</p>
+            <div className="flex items-center mb-4">
+              <input
+                type="checkbox"
+                id="neverAskAgain"
+                checked={neverAskAgain}
+                onChange={(e) => setNeverAskAgain(e.target.checked)}
+                className="mr-2"
+              />
+              <label htmlFor="neverAskAgain">Don't ask me again</label>
+            </div>
+            <div className="flex justify-end space-x-3">
+              <button
+                onClick={() => setShowConfirmModal(false)}
+                className="px-4 py-2 border rounded-md hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleConfirm}
+                className="px-4 py-2 bg-agri-green text-white rounded-md hover:bg-green-700"
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="flex justify-between items-center mt-4">
         <div className="text-sm text-gray-700">
