@@ -87,6 +87,10 @@ export default function MyOrders() {
     console.log(`Accepting order: ${orderId}`);
   };
 
+  const handleReject = (orderId) => {
+    console.log(`Rejecting order: ${orderId}`);
+  };
+
   const handlePack = (orderId) => {
     console.log(`Packing order: ${orderId}`);
   };
@@ -237,13 +241,22 @@ export default function MyOrders() {
                 {order.status !== "Shipped" && (
                   <div className="flex space-x-2">
                     {order.status === "New" && (
-                      <button
-                        onClick={() => handleAccept(order.order_number)}
-                        className="bg-agri-green hover:bg-green-600 text-white font-medium py-2 px-4 rounded-lg text-sm flex items-center transition-colors"
-                      >
-                        <FiCheck className="mr-1.5" />
-                        Accept
-                      </button>
+                      <div className="flex space-x-2">
+                        <button
+                          onClick={() => handleAccept(order.order_number)}
+                          className="bg-agri-green hover:bg-green-600 text-white font-medium py-2 px-4 rounded-lg text-sm flex items-center transition-colors"
+                        >
+                          <FiCheck className="mr-1.5" />
+                          Accept
+                        </button>
+                        <button
+                          onClick={() => handleReject(order.order_number)}
+                          className="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg text-sm flex items-center transition-colors"
+                        >
+                          <FiX className="mr-1.5" />
+                          Reject
+                        </button>
+                      </div>
                     )}
                     {order.status !== "New" && order.status !== "Delivered" && (
                       <button

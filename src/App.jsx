@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FiBell, FiUser } from 'react-icons/fi'
+import { FiBell, FiUser, FiArrowLeft } from 'react-icons/fi'
 import { motion, AnimatePresence } from 'framer-motion'
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import { useAuth } from './context/AuthContext'
@@ -74,7 +74,17 @@ function AppContent() {
         transition={{ duration: 0.3 }}
       >
         <div className="container mx-auto flex items-center justify-between">
-          <h1 className="text-white text-xl font-bold tracking-tight">AgriSeller Pro</h1>
+          <div className="flex items-center space-x-3">
+            <motion.button
+              className="p-2 bg-white/20 hover:bg-white/30 rounded-full text-white"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => navigate(-1)}
+            >
+              <FiArrowLeft className="text-base" />
+            </motion.button>
+            <h1 className="text-white text-xl font-bold tracking-tight">AgriSeller Pro</h1>
+          </div>
           <div className="flex items-center space-x-3">
             <motion.button
               className="p-2 bg-white/20 hover:bg-white/30 rounded-full text-white"
@@ -110,7 +120,7 @@ function AppContent() {
         </>} />
         <Route path="/orders" element={<MyOrders />} />
         <Route path="/products" element={<MyProducts />} />
-        <Route path="/all-products" element={<AllProducts />} />
+        <Route path="/all-products" element={<AllProducts setActivePage={setActivePage} />} />
         <Route path="/profile" element={<ProfilePage setActivePage={setActivePage} onLogout={handleLogout} />} />
         <Route path="/account-details" element={<AccountDetailsPage />} />
         <Route path="/address-details" element={<AddressDetailsPage />} />
@@ -123,7 +133,7 @@ function AppContent() {
         <Route path="/refer-app" element={<ReferAppPage />} />
         <Route path="/my-statements" element={<MyStatementsPage />} />
         <Route path="/seller-score" element={<SellerScorePage />} />
-        <Route path="/seller-leaderboard" element={<SellerLeaderboardPage />} />
+        <Route path="/seller-leaderboard" element={<SellerLeaderboardPage setActivePage={setActivePage} />} />
         <Route path="/demand-forecast" element={<DemandForecastPage />} />
         <Route path="/price-intelligence" element={<PriceIntelligencePage />} />
       </Routes>

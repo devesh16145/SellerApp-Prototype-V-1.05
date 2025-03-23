@@ -6,7 +6,6 @@ export default function ProductCard({ product }) {
   const isHighPrice = product.price > product.expectedPrice;
   const isOutOfStock = product.stock_quantity === 0;
   const isLowStock = product.stock_quantity <= 20 && !isOutOfStock;
-  const isNotListed = !product.isListed;
 
   return (
     <motion.div className="p-2 bg-white rounded-lg border border-gray-200 hover:shadow-md transition-shadow">
@@ -37,9 +36,6 @@ export default function ProductCard({ product }) {
               )}
               {isLowStock && !isOutOfStock && (
                 <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-orange-500 text-white">Low Stock</span>
-              )}
-              {isNotListed && (
-                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-yellow-500 text-white">Not Listed</span>
               )}
               {!isOutOfStock && (
                 <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700">Stock: {product.stock_quantity}</span>

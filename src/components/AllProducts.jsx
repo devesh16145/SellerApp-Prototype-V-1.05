@@ -5,7 +5,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { useLocalStorage } from '@uidotdev/usehooks';
 import { useNavigate } from 'react-router-dom';
 
-export default function AllProducts() {
+export default function AllProducts({ setActivePage }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -18,6 +18,7 @@ export default function AllProducts() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    setActivePage('products');
     fetchAllProducts();
   }, []);
 
@@ -131,15 +132,14 @@ export default function AllProducts() {
         </div>
       </div>
 
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto sm:overflow-visible">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Category</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Base Price</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Description</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Action</th>
+              <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+              <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase hidden sm:table-cell">Category</th>
+              <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Price</th>
+              <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Action</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -152,19 +152,16 @@ export default function AllProducts() {
                 onDragEnd={(_, info) => handleDragEnd(product, info)}
                 whileDrag={{ cursor: 'grabbing' }}
               >
-                <td className="px-6 py-4 whitespace-nowrap">{product.name}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{product.category}</td>
-                <td className="px-6 py-4 whitespace-nowrap">₹{product.base_price}</td>
-                <td className="px-6 py-4">
-                  <div className="truncate max-w-xs">{product.description}</div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
+                <td className="px-4 py-2 whitespace-nowrap text-sm">{product.name}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm hidden sm:table-cell">{product.category}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm">₹{product.base_price}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm">
                   <button
                     onClick={() => handleListProduct(product)}
-                    className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-agri-green hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-agri-green"
+                    className="inline-flex items-center px-2 py-1 text-xs border border-transparent font-medium rounded-md text-white bg-agri-green hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-agri-green"
                   >
-                    <FiPlus className="mr-2" />
-                    List Product
+                    <FiPlus className="mr-1" />
+                    List
                   </button>
                 </td>
               </motion.tr>

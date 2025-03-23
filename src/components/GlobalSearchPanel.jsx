@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FiSearch, FiX } from 'react-icons/fi';
+import { FiSearch, FiX, FiChevronLeft } from 'react-icons/fi';
 import { products } from '../data/products';
 import { myProducts } from '../data/myProducts';
 import { orders } from '../data/myOrders';
@@ -132,7 +132,7 @@ export default function GlobalSearchPanel({ onSearch, setActivePage }) {
 
   return (
     <div className="bg-white p-3 border-b border-gray-100 relative">
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center">
         <div className="relative flex-1">
           <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
           <input

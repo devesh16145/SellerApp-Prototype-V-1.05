@@ -4,7 +4,7 @@ import { useAuth } from '../../context/AuthContext';
 import { FiSearch, FiRefreshCw, FiTrendingUp, FiTrendingDown } from 'react-icons/fi';
 import { FaMedal, FaFire } from 'react-icons/fa';
 
-export default function SellerLeaderboardPage() {
+export default function SellerLeaderboardPage({ setActivePage }) {
   const [leaderboardData, setLeaderboardData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -13,6 +13,7 @@ export default function SellerLeaderboardPage() {
   const [originalLeaderboardData, setOriginalLeaderboardData] = useState([]); // To hold original data for refresh/reset
 
   useEffect(() => {
+    setActivePage('leaderboard');
     fetchLeaderboard();
   }, [userId]);
 
@@ -114,52 +115,55 @@ export default function SellerLeaderboardPage() {
       </div>
 
 
-      <div className="grid grid-cols-1 gap-2 mt-4">
-        {leaderboardData.map((seller, index) => (
-          <div
-            key={seller.id}
-            className={`p-3 rounded-lg shadow-sm transition-all duration-300 transform hover:scale-102 ${seller.profile_id === userId ? 'bg-green-50 border border-green-500' : 'bg-white'}`}
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <div className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold ${index === 0 ? 'bg-yellow-500 text-white' : index === 1 ? 'bg-gray-400 text-white' : index === 2 ? 'bg-orange-400 text-white' : 'bg-gray-100 text-gray-700'}`}>
-                  {index < 3 ? <FaMedal className="text-lg" /> : index + 1}
-                </div>
-                <div className="flex items-center space-x-2">
-                  <div className="font-semibold text-gray-900">{seller.seller_name}</div>
-                  <div className="text-sm text-gray-500 flex items-center">
-                    {seller.rank_change > 0 ? (
-                      <><FiTrendingUp className="text-green-500" /> +{seller.rank_change}</>
-                    ) : seller.rank_change < 0 ? (
-                      <><FiTrendingDown className="text-red-500" /> {seller.rank_change}</>
-                    ) : null}
+      <div className="overflow-x-auto">
+        <table className="w-full">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rank</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Seller</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SKUs</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Score</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sales</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fulfillment</th>
+              <th className="px-4 py-3"></th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {leaderboardData.map((seller, index) => (
+              <tr
+                key={seller.id}
+                className={`transition-all duration-300 hover:bg-gray-50 ${seller.profile_id === userId ? 'bg-green-50' : ''}`}
+              >
+                <td className="px-4 py-3 whitespace-nowrap">
+                  <div className="flex items-center">
+                    <div className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-bold ${index === 0 ? 'bg-yellow-500 text-white' : index === 1 ? 'bg-gray-400 text-white' : index === 2 ? 'bg-orange-400 text-white' : 'bg-gray-100 text-gray-700'}`}>
+                      {index < 3 ? <FaMedal className="text-lg" /> : index + 1}
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div className="flex items-center space-x-6">
-                <div className="flex items-center space-x-4">
-                  <div className="text-sm">
-                    <span className="text-gray-500">SKUs:</span>
-                    <span className="ml-1 font-semibold">{seller.sku_count}</span>
+                </td>
+                <td className="px-4 py-3 whitespace-nowrap">
+                  <div className="flex items-center space-x-2">
+                    <div className="font-semibold text-gray-900">{seller.seller_name}</div>
+                    <div className="text-sm text-gray-500 flex items-center">
+                      {seller.rank_change > 0 ? (
+                        <><FiTrendingUp className="text-green-500" /> +{seller.rank_change}</>
+                      ) : seller.rank_change < 0 ? (
+                        <><FiTrendingDown className="text-red-500" /> {seller.rank_change}</>
+                      ) : null}
+                    </div>
                   </div>
-                  <div className="text-sm">
-                    <span className="text-gray-500">Score:</span>
-                    <span className="ml-1 font-semibold">{seller.competitive_pricing_score}</span>
-                  </div>
-                  <div className="text-sm">
-                    <span className="text-gray-500">Sales:</span>
-                    <span className="ml-1 font-semibold">₹{seller.sales_volume}</span>
-                  </div>
-                  <div className="text-sm">
-                    <span className="text-gray-500">Fulfillment:</span>
-                    <span className="ml-1 font-semibold">{seller.order_fulfillment_rate}%</span>
-                  </div>
-                </div>
-                {index < 3 && <FaFire className="text-orange-500 text-lg animate-pulse" />}
-              </div>
-            </div>
-          </div>
-        ))}
+                </td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm font-semibold">{seller.sku_count}</td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm font-semibold">{seller.competitive_pricing_score}</td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm font-semibold">₹{seller.sales_volume}</td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm font-semibold">{seller.order_fulfillment_rate}%</td>
+                <td className="px-4 py-3 whitespace-nowrap text-right">
+                  {index < 3 && <FaFire className="text-orange-500 text-lg animate-pulse" />}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
