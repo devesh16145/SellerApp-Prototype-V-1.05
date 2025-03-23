@@ -2,21 +2,106 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Add custom styles here */
+@layer components {
+  .btn-primary {
+    @apply bg-agri-green text-white px-4 py-2 rounded-lg hover:bg-agri-green-dark transition-colors;
+  }
+
+  .btn-secondary {
+    @apply bg-agri-gray text-gray-800 px-4 py-2 rounded-lg hover:bg-agri-gray-dark transition-colors dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600;
+  }
+
+  .card {
+    @apply bg-white p-4 rounded-xl shadow-card hover:shadow-card-hover transition-shadow dark:bg-gray-800 dark:text-white;
+  }
+
+  .input-field {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-agri-green focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white;
+  }
+
+  .skeleton {
+    @apply animate-pulse bg-gray-200 rounded dark:bg-gray-700;
+  }
+
+  .grid-layout {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4;
+  }
+
+  .prose-custom {
+    @apply prose prose-lg dark:prose-invert prose-headings:text-agri-green dark:prose-headings:text-agri-green-light prose-a:text-agri-blue hover:prose-a:text-agri-blue-light;
+  }
+}
+
+@layer base {
+  :root {
+    --color-agri-green: 43 122 11;
+    --color-agri-green-light: 76 175 80;
+    --color-agri-green-dark: 27 94 32;
+    --color-agri-yellow: 255 222 0;
+    --color-agri-yellow-light: 255 245 157;
+    --color-agri-gray: 245 245 245;
+    --color-agri-gray-dark: 224 224 224;
+    --color-agri-blue: 25 118 210;
+    --color-agri-blue-light: 100 181 246;
+    --color-agri-orange: 255 152 0;
+    --color-agri-red: 244 67 54;
+    --color-agri-purple: 156 39 176;
+  }
+}
+
+/* Custom Container */
 .container {
   @apply max-w-4xl;
 }
 
+/* Animations */
 @keyframes rotateClockMinute {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Animation Classes */
 .animate-clock-minute {
   animation: rotateClockMinute 2s linear infinite;
-  transform-origin: center; /* Ensure rotation is around the center */
+  transform-origin: center;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.4s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.3s ease-out;
+}
+
+/* Hover Transitions */
+.transition-transform {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+.hover-scale {
+  @apply hover:scale-105 transition-transform;
+}
+
+.hover-lift {
+  @apply hover:-translate-y-1 transition-transform;
 }

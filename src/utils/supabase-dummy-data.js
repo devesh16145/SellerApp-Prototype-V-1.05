@@ -161,6 +161,49 @@ const dummySellerTips = [
   }
 ];
 
+const dummyAllProducts = [
+  {
+    name: 'Organic Tomatoes',
+    description: 'Fresh, locally grown organic tomatoes',
+    category: 'Vegetables',
+    base_price: 40.00,
+    image_url: 'https://example.com/tomatoes.jpg',
+    created_at: new Date().toISOString()
+  },
+  {
+    name: 'Premium Rice',
+    description: 'High-quality basmati rice',
+    category: 'Grains',
+    base_price: 120.00,
+    image_url: 'https://example.com/rice.jpg',
+    created_at: new Date().toISOString()
+  },
+  {
+    name: 'Fresh Apples',
+    description: 'Crisp and sweet apples from local orchards',
+    category: 'Fruits',
+    base_price: 80.00,
+    image_url: 'https://example.com/apples.jpg',
+    created_at: new Date().toISOString()
+  },
+  {
+    name: 'Organic Wheat Flour',
+    description: 'Stone-ground organic wheat flour',
+    category: 'Grains',
+    base_price: 45.00,
+    image_url: 'https://example.com/flour.jpg',
+    created_at: new Date().toISOString()
+  },
+  {
+    name: 'Fresh Carrots',
+    description: 'Organic carrots, perfect for cooking and juicing',
+    category: 'Vegetables',
+    base_price: 35.00,
+    image_url: 'https://example.com/carrots.jpg',
+    created_at: new Date().toISOString()
+  }
+];
+
 async function insertDummyAddresses(supabase) {
   console.log('Inserting dummy addresses...');
   const { error } = await supabase
@@ -240,6 +283,17 @@ async function insertDummySellerTips(supabase) {
   }
 }
 
+async function insertDummyAllProducts(supabase) {
+  console.log('Inserting dummy all_products...');
+  const { error } = await supabase
+    .from('all_products')
+    .upsert(dummyAllProducts, { onConflict: 'id' });
+
+  if (error) {
+    console.error('Error inserting all_products:', error);
+  }
+}
+
 export async function populateDummyData(supabase) {
   try {
     
@@ -250,6 +304,7 @@ export async function populateDummyData(supabase) {
     await insertDummyOrderItems(supabase);
     await insertDummyTodos(supabase);
     await insertDummySellerTips(supabase);
+    await insertDummyAllProducts(supabase);
     
     console.log('All dummy data insertion processes completed.');
   } catch (error) {

@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
-import { FiSearch, FiX, FiUpload } from 'react-icons/fi'; // Import FiUpload icon
+import { FiSearch, FiX, FiUpload, FiList } from 'react-icons/fi';
 import AddNewProductButton from './AddNewProductButton';
+import { useNavigate } from 'react-router-dom';
 import AddProductForm from './AddProductForm';
 import BulkUploadForm from './BulkUploadForm';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../context/AuthContext';
 
 export default function MyProducts() {
+  const navigate = useNavigate();
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState('All');
@@ -121,7 +123,14 @@ export default function MyProducts() {
     <div className="bg-white rounded-lg overflow-hidden">
       <div className="p-3 border-b border-gray-100 flex items-center justify-between">
         <h2 className="font-bold text-lg">My Products</h2>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-4">
+          <button
+            onClick={() => navigate('/all-products')}
+            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-agri-green hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-agri-green"
+          >
+            <FiList className="mr-2" />
+            Browse All Products
+          </button>
           {searchOpen ? (
             <div className="flex items-center">
               <input

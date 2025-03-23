@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { FiBell, FiUser } from 'react-icons/fi'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuth } from './context/AuthContext'
 import LoginForm from './components/auth/LoginForm'
 import SignUpForm from './components/auth/SignUpForm'
@@ -17,6 +18,7 @@ import DailySalesGraph from './components/DailySalesGraph'
 import MyOrders from './components/MyOrders'
 import MyProducts from './components/MyProducts'
 import ProfilePage from './components/ProfilePage'
+import AllProducts from './components/AllProducts'
 import AccountDetailsPage from './components/profile-pages/AccountDetailsPage'
 import AddressDetailsPage from './components/profile-pages/AddressDetailsPage'
 import MyBillsPage from './components/profile-pages/MyBillsPage'
@@ -63,6 +65,7 @@ export default function App() {
   }
 
   return (
+    <Router>
     <div className="min-h-screen bg-agri-gray">
       <motion.nav
         className="bg-gradient-to-r from-agri-green to-agri-green-dark p-3 shadow-md"
@@ -92,57 +95,40 @@ export default function App() {
         </div>
       </motion.nav>
 
-      {activePage === 'home' && <GlobalSearchPanel onSearch={handleSearch} setActivePage={setActivePage} />}
-
-      <main className="p-2 space-y-3 pb-14">
-        {activePage === 'home' ? (
-          <>
+      <Routes>
+        <Route path="/" element={<>
+          <GlobalSearchPanel onSearch={handleSearch} setActivePage={setActivePage} />
+          <main className="p-2 space-y-3 pb-14 relative">
             <SellerTips />
             <DashboardMetrics />
             <DailySalesGraph />
             <AddNewProductButton />
             <TodoList />
             <RecentOrders />
-            <TopSellingProducts /> {/* Render TopSellingProducts component here */}
-          </>
-        ) : activePage === 'orders' ? (
-          <MyOrders />
-        ) : activePage === 'products' ? (
-          <MyProducts />
-        ) : activePage === 'profile' ? (
-          <ProfilePage setActivePage={setActivePage} onLogout={handleLogout} />
-        ) : activePage === 'accountDetails' ? (
-          <AccountDetailsPage />
-        ) : activePage === 'addressDetails' ? (
-          <AddressDetailsPage />
-        ) : activePage === 'myBills' ? (
-          <MyBillsPage />
-        ) : activePage === 'orderSummaryStats' ? (
-          <OrderSummaryStatsPage />
-        ) : activePage === 'sellerSupport' ? (
-          <SellerSupportPage />
-        ) : activePage === 'privacyPolicy' ? (
-          <PrivacyPolicyPage />
-        ) : activePage === 'termsCondition' ? (
-          <TermsConditionPage />
-        ) : activePage === 'preferences' ? (
-          <PreferencesPage />
-        ) : activePage === 'referApp' ? (
-          <ReferAppPage />
-        ) : activePage === 'myStatements' ? (
-          <MyStatementsPage />
-        ) : activePage === 'sellerScore' ? (
-          <SellerScorePage />
-        ) : activePage === 'sellerLeaderboard' ? (
-          <SellerLeaderboardPage />
-        ) : activePage === 'demandForecast' ? (
-          <DemandForecastPage />
-        ) : activePage === 'priceIntelligence' ? (
-          <PriceIntelligencePage />
-        ) : null}
-      </main>
-
+            <TopSellingProducts />
+          </main>
+        </>} />
+        <Route path="/orders" element={<MyOrders />} />
+        <Route path="/products" element={<MyProducts />} />
+        <Route path="/all-products" element={<AllProducts />} />
+        <Route path="/profile" element={<ProfilePage setActivePage={setActivePage} onLogout={handleLogout} />} />
+        <Route path="/account-details" element={<AccountDetailsPage />} />
+        <Route path="/address-details" element={<AddressDetailsPage />} />
+        <Route path="/my-bills" element={<MyBillsPage />} />
+        <Route path="/order-summary-stats" element={<OrderSummaryStatsPage />} />
+        <Route path="/seller-support" element={<SellerSupportPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+        <Route path="/terms-condition" element={<TermsConditionPage />} />
+        <Route path="/preferences" element={<PreferencesPage />} />
+        <Route path="/refer-app" element={<ReferAppPage />} />
+        <Route path="/my-statements" element={<MyStatementsPage />} />
+        <Route path="/seller-score" element={<SellerScorePage />} />
+        <Route path="/seller-leaderboard" element={<SellerLeaderboardPage />} />
+        <Route path="/demand-forecast" element={<DemandForecastPage />} />
+        <Route path="/price-intelligence" element={<PriceIntelligencePage />} />
+      </Routes>
       <BottomNav setActivePage={setActivePage} activePage={activePage} />
     </div>
+    </Router>
   )
 }

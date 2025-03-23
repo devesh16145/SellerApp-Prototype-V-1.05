@@ -1,8 +1,10 @@
 import React from 'react';
+import { FiHome, FiList, FiPackage, FiUser } from 'react-icons/fi';
 import { motion } from 'framer-motion';
-import { FiHome, FiList, FiPackage } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 
 export default function BottomNav({ setActivePage, activePage }) {
+  const navigate = useNavigate();
   return (
     <motion.nav
       className="fixed bottom-0 left-0 w-full bg-white shadow-top p-2 flex justify-around items-center z-50"
@@ -13,19 +15,28 @@ export default function BottomNav({ setActivePage, activePage }) {
       <NavItem
         icon={<FiHome />}
         text="Home"
-        onClick={() => setActivePage('home')}
+        onClick={() => {
+          setActivePage('home');
+          navigate('/');
+        }}
         isActive={activePage === 'home'}
       />
       <NavItem
         icon={<FiList />}
         text="Orders"
-        onClick={() => setActivePage('orders')}
+        onClick={() => {
+          setActivePage('orders');
+          navigate('/orders');
+        }}
         isActive={activePage === 'orders'}
       />
       <NavItem
         icon={<FiPackage />}
         text="Products"
-        onClick={() => setActivePage('products')}
+        onClick={() => {
+          setActivePage('products');
+          navigate('/products');
+        }}
         isActive={activePage === 'products'}
       />
     </motion.nav>
